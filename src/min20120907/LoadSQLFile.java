@@ -1,3 +1,4 @@
+package min20120907;
 import javax.swing.*;
 import java.sql.*;
 import java.io.*;
@@ -11,19 +12,23 @@ public class LoadSQLFile {
         System.out.println("Please input your query: ");
         String item = s.next();
         try {
+        	Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:HandshakeBot.db");
             Statement stmt = conn.createStatement();
             // FileReader fr = new FileReader("MilkTea.sql");
             // BufferedReader br = new BufferedReader(fr);
             // stmt.execute(br.readLine());
-            stmt.execute("SELECT * FROM MilkTea");
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM MilkTea WHERE INSTR(name, '"+item+"');" );
             List<Drink> drinks = new ArrayList<>();
-            while (stmt.getResultSet().next()) {
-                String n = stmt.getResultSet().getString("name");
-                String c = stmt.getResultSet().getString("category");
-                int p = stmt.getResultSet().getInt("price");
-                String b = stmt.getResultSet().getString("brand");
+            while (rs.next()) {
+                String n = rs.getString("name");
+                String c = rs.getString("category");
+                int p = rs.getInt("price");
+                String b = rs.getString("brand");
                 drinks.add(new Drink(n,c,p,b));
+            }
+            for(Drink a : drinks) {
+            	System.out.println(a.getName());
             }
             stmt.close();
             conn.close();

@@ -1,3 +1,5 @@
+package min20120907;
+
 public class Drink {
 	String name, category, brand;
 	int price;

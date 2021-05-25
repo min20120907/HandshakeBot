@@ -1,3 +1,5 @@
+package min20120907;
+
 public class Topping {
     int price;
     String name, category, brand;
