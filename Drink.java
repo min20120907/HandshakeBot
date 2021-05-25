@@ -1,10 +1,10 @@
 public class Drink {
-	String name, cate, brand;
+	String name, category, brand;
 	int price;
 
-	Drink(String name, String cate, int price, String brand) {
+	Drink(String name, String category, int price, String brand) {
 		this.name = name;
-		this.cate = cate;
+		this.category = category;
 		this.price = price;
 		this.brand = brand;
 	}
@@ -13,8 +13,8 @@ public class Drink {
 		return brand;
 	}
 
-	public String getCate() {
-		return cate;
+	public String getCategory() {
+		return category;
 	}
 
 	public String getName() {
@@ -29,8 +29,8 @@ public class Drink {
 		this.brand = brand;
 	}
 
-	public void setCate(String cate) {
-		this.cate = cate;
+	public void setCate(String category) {
+		this.category = category;
 	}
 
 	public void setName(String name) {
