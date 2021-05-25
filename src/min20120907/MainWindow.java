@@ -25,14 +25,21 @@ import java.awt.Choice;
 import java.sql.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.awt.Component;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.ScrollPaneConstants;
 
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private List<Drink> drinks = new ArrayList<>();
+
 	/**
 	 * Launch the application.
 	 */
@@ -54,22 +61,49 @@ public class MainWindow extends JFrame {
 	 */
 	public MainWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 464, 483);
+		setBounds(100, 100, 694, 512);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 135, 409, 291);
+		scrollPane.setBounds(19, 135, 661, 294);
 		contentPane.add(scrollPane);
 		
-		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
-		panel.setLayout(new CardLayout(0, 0));
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		scrollPane.setViewportView(horizontalBox_1);
+		
+		Box verticalBox_1 = Box.createVerticalBox();
+		horizontalBox_1.add(verticalBox_1);
+		
+		JPanel panel_2 = new JPanel();
+		verticalBox_1.add(panel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("Coco");
+		lblNewLabel_1.setIcon(new ImageIcon("src/min20120907/coco.jpg"));
+		panel_2.add(lblNewLabel_1);
+		
+		Box verticalBox_2 = Box.createVerticalBox();
+		horizontalBox_1.add(verticalBox_2);
+		
+		JPanel panel_3 = new JPanel();
+		verticalBox_2.add(panel_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("Comebuy");
+		lblNewLabel_2.setIcon(new ImageIcon("src/min20120907/comebuy.jpg"));
+		panel_3.add(lblNewLabel_2);
 		
 		Box verticalBox = Box.createVerticalBox();
-		panel.add(verticalBox, "name_8644159212799");
+		horizontalBox_1.add(verticalBox);
+		
+		JPanel panel_4 = new JPanel();
+		verticalBox.add(panel_4);
+		
+		JLabel lblChingshinFuchuan = new JLabel("Ching-Shin Fu-Chuan");
+		panel_4.add(lblChingshinFuchuan);
+		lblChingshinFuchuan.setVerticalAlignment(SwingConstants.TOP);
+		lblChingshinFuchuan.setIcon(new ImageIcon("src/min20120907/chinsin.jpg"));
 
         	
         
@@ -105,20 +139,44 @@ public class MainWindow extends JFrame {
 	                drinks.add(new Drink(n,c,p,b));
 	            }
 	            
-	      		
+	            drinks = drinks.stream()
+	                    .sorted(Comparator.comparingInt(Drink::getPrice))
+	                    .collect(Collectors.toList());
 	            invalidate();
 	            validate();
+	            
 	            for(Drink a : drinks) {
-	            	 JPanel panel_1 = new JPanel();
-	 	      		verticalBox.add(panel_1);
-	 	      		String brandPic ="";
-	 	      		switch(a.getBrand()) {
-	 	      		
-	 	      		}
-	 	      		Box horizontalBox = Box.createHorizontalBox();
-	 	      		panel_1.add(horizontalBox);
-	 	      		JRadioButton rdbtnNewRadioButton = new JRadioButton(a.getCategory()+" "+a.getName()+ " " + a.getPrice());
-	 	      		horizontalBox.add(rdbtnNewRadioButton);
+	            	
+	            	switch(a.getBrand()) {
+	            	
+	            	case "Ching-Shin Fu-Chuan":
+	            		System.out.println("coco");
+	            		Box horizontalBox = Box.createHorizontalBox();
+	            		JPanel panel_1 = new JPanel();
+	            		verticalBox.add(panel_1);
+	            		panel_1.add(horizontalBox);
+	            		JRadioButton rdbtnNewRadioButton = new JRadioButton(a.getCategory()+" "+a.getName()+ " " + a.getPrice());
+	            		horizontalBox.add(rdbtnNewRadioButton);
+	            		break;
+	            	case "Coco":
+	            		Box horizontalBox_2 = Box.createHorizontalBox();
+	            		JPanel panel_2 = new JPanel();
+	            		verticalBox_1.add(panel_2);
+	            		panel_2.add(horizontalBox_2);
+	            		JRadioButton rdbtnNewRadioButton2 = new JRadioButton(a.getCategory()+" "+a.getName()+ " " + a.getPrice());
+	            		horizontalBox_2.add(rdbtnNewRadioButton2);
+	            		break;
+	            	case "Comebuy":
+	            		Box horizontalBox_3 = Box.createHorizontalBox();
+	            		JPanel panel_3 = new JPanel();
+	            		verticalBox_2.add(panel_3);
+	            		panel_3.add(horizontalBox_3);
+	            		JRadioButton rdbtnNewRadioButton3 = new JRadioButton(a.getCategory()+" "+a.getName()+ " " + a.getPrice());
+	            		horizontalBox_3.add(rdbtnNewRadioButton3);
+	            		break;
+	            	default:
+	            		break;
+	            	}
 	            }
 	      		
 	            stmt.close();
@@ -128,7 +186,7 @@ public class MainWindow extends JFrame {
 				}
 			}
 		});
-		btnSubmit.setBounds(272, 9, 117, 25);
+		btnSubmit.setBounds(278, 36, 117, 25);
 		contentPane.add(btnSubmit);
 		 
 		JLabel lblResult = new JLabel("Result:");
