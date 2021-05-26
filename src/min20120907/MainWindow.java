@@ -229,7 +229,6 @@ choice.add("門陣(門市限定)");
 							toppings2.add(new Topping(n, c, p, b));
 						}
 					}
-					System.out.println(toppings1);System.out.println(toppings2);
 					// Iterates all the drinks, storing into the list
 					ResultSet rs = stmt.executeQuery("SELECT * FROM MilkTea WHERE INSTR(name, '" + s + "');");
 					while (rs.next()) {
@@ -250,8 +249,6 @@ choice.add("門陣(門市限定)");
 									.collect(Collectors.toList());
 							
 						}
-						System.out.println(available1);
-						System.out.println(available2);
 						if(available1!=null)
 						if (available1.size() > 0)
 							p += available1.get(0).getPrice();
@@ -259,29 +256,28 @@ choice.add("門陣(門市限定)");
 						if (available2.size() > 0)
 							p += available2.get(0).getPrice();
 						
-						try{
+						try {
 						if(choice.getSelectedItem().equals("No Toppings")&&choice_1.getSelectedItem().equals("No Toppings"))
 						drinks.add(new Drink(n, c, p, b));
-						if(choice.getSelectedItem().equals("No Toppings")&&available2.size()>0)
+						else if(choice.getSelectedItem().equals("No Toppings") && available2.size()>0)
 						drinks.add(new Drink(n, c, p, b));
-						if(choice_1.getSelectedItem().equals("No Toppings")&&available1.size()>0)
+						else if(choice_1.getSelectedItem().equals("No Toppings") && available1.size()>0)
 						drinks.add(new Drink(n, c, p, b));
-						if(available2.size()>0&&available1.size()>0)
+						else if(available2.size()>0 && available1.size()>0)
 						drinks.add(new Drink(n, c, p, b));
-						}catch(NullPointerException ne){
+						}catch(NullPointerException ne) {
 							ne.printStackTrace();
 						}
 					}
-					System.out.println(drinks);
 					// Sorting the drinks by ascending order
 					drinks = drinks.stream().sorted(Comparator.comparingInt(Drink::getPrice))
 							.collect(Collectors.toList());
 					
 					
-
-					for (Drink a : drinks) {
-						invalidate();
+					invalidate();
 					validate();
+					for (Drink a : drinks) {
+						
 						switch (a.getBrand()) {
 
 							case "Ching-Shin Fu-Chuan":
@@ -305,7 +301,8 @@ choice.add("門陣(門市限定)");
 								break;
 						}
 					}
-
+					invalidate();
+					validate();
 					stmt.close();
 					conn.close();
 				} catch (Exception eee) {
@@ -340,6 +337,8 @@ choice.add("門陣(門市限定)");
 				verticalBox_5.removeAll();
 				verticalBox_4.removeAll();
 				verticalBox_3.removeAll();
+				invalidate();
+				validate();
 			}
 
 		});
