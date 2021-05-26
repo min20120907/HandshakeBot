@@ -239,27 +239,38 @@ public class MainWindow extends JFrame {
 									.collect(Collectors.toList());
 							
 						}
+						System.out.println(available1);
+						System.out.println(available2);
+						if(available1!=null)
 						if (available1.size() > 0)
 							p += available1.get(0).getPrice();
+						if(available2!=null)
 						if (available2.size() > 0)
 							p += available2.get(0).getPrice();
-						if(
-							(toppings1.size()==0&&toppings2.size()==0) ||
-							(available1.size()>0 && toppings2.size()==0) ||
-							(available2.size()>0 && toppings1.size()==0) ||
-							(available1.size()>0 && available2.size()>0)
-						)
+						
+						try{
+						if(choice.getSelectedItem().equals("No Toppings")&&choice_1.getSelectedItem().equals("No Toppings"))
 						drinks.add(new Drink(n, c, p, b));
+						if(choice.getSelectedItem().equals("No Toppings")&&available2.size()>0)
+						drinks.add(new Drink(n, c, p, b));
+						if(choice_1.getSelectedItem().equals("No Toppings")&&available1.size()>0)
+						drinks.add(new Drink(n, c, p, b));
+						if(available2.size()>0&&available1.size()>0)
+						drinks.add(new Drink(n, c, p, b));
+						}catch(NullPointerException ne){
+							ne.printStackTrace();
+						}
 					}
 					System.out.println(drinks);
 					// Sorting the drinks by ascending order
 					drinks = drinks.stream().sorted(Comparator.comparingInt(Drink::getPrice))
 							.collect(Collectors.toList());
 					
-					invalidate();
-					validate();
+					
 
 					for (Drink a : drinks) {
+						invalidate();
+					validate();
 						switch (a.getBrand()) {
 
 							case "Ching-Shin Fu-Chuan":
@@ -310,6 +321,11 @@ public class MainWindow extends JFrame {
 		JButton btnC = new JButton("clear");
 		btnC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				invalidate();
+				validate();
+				drinks = new ArrayList<>();
+				toppings1 = new ArrayList<>();
+				toppings2 = new ArrayList<>();
 				verticalBox_5.removeAll();
 				verticalBox_4.removeAll();
 				verticalBox_3.removeAll();
