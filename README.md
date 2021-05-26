@@ -11,7 +11,7 @@ A bot that one can use it to compare the price of handshake beverage of same ite
 ## Installation
 ### For SQLite
 ``` 
-cd src/min20120907
+cd HandshakeBot/src/min20120907
 javac -cp sqlite-jdbc-3.8.9.1.jar MainWindow.java
 java -cp .:sqlite-jdbc-3.8.9.1.jar MainWindow
 ```
