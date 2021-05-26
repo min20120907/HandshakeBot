@@ -5,7 +5,10 @@ public class Topping {
     String name, category, brand;
 
     Topping(String name, String category, int price, String brand) {
-
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.brand = brand;
     }
 
     public String getBrand() {
